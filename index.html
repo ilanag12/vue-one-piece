@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+
+</head>
+
+<body>
+    <div class="" id="app">
+
+        <header class="header">
+            <div class="header__container">
+                <div class="header__inner">
+                    <nav class="header__nav nav">
+                        <ul class="nav__list">
+                            <li class="nav__item">
+                                <a href="#" class="header__item"><img src="./assets/img/logo.png" alt=""
+                                        class="logo"></a>
+
+                            </li>
+                            <li class="nav__item">
+                                <a href="" class="header__item" @click.prevent="currentPage = 'home'">Главная</a>
+
+                            </li>
+                            <li class="nav__item">
+                                <a href="" class="header__item" @click.prevent="currentPage = 'character'">Персонажи</a>
+
+                            </li>
+                            <li class="nav__item">
+                                <a href="" class="header__item" @click.prevent="currentPage = 'products'">Товары</a>
+
+                            </li>
+                            <li class="nav__item" v-if="!isAuth">
+                                <a href="" class="header__item" @click.prevent="currentPage = 'login'">Вход</a>
+
+                            </li>
+                            <li class="nav__item" v-if="!isAuth">
+                                <a href="" class="header__item"
+                                    @click.prevent="currentPage = 'register'">Регистрация</a>
+
+                            </li>
+                            <li class="nav__item" v-if="isAuth && !isAdmin">
+                                <a href="" class="header__item" @click.prevent="currentPage = 'personal'">Личный
+                                    кабинет</a>
+
+                            </li>
+                            <li class="nav__item" v-if="isAuth && isAdmin">
+                                <a href="" class="header__item" @click.prevent="currentPage = 'admin'">Панель
+                                    администратора</a>
+
+                            </li>
+                            <li class="nav__item">
+                                <a href="#popup" class="contact__link">Рассылка</a>
+                            </li>
+                            <li class="nav__item" v-if="isAuth">
+                                <a href="" class="header__item" @click.prevent="logout">Выход</a>
+
+                            </li>
+                            <li class="nav__item" v-if="currentPage==='products'">
+                                <v-card :basket="cart" @remove="removeFromCart">
+                                    <p>Здесь появится содержимое вашей корзины</p>
+                                </v-card>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main class="main">
+
+            <section class="main-page" v-if="currentPage==='home'">
+                <div class="main-page__banner-container">
+                    <img src="/assets/img/banner.jpg" alt="banner" class="main-page__banner">
+                    <div class="main-page__banner-content">
+                        <p>One Piece</p>
+                        <p>Автор Эйтиро Ода</p>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="main-page__description">
+                        <h2>Описание</h2>
+                        <p>Легендарный Гол Д. Роджер был пиратским королём, он был единственным пиратом, проплывшим
+                            Гранд Лайн от начала и до конца. Захват Роджера 22 года тому назад всемирным
+                            правительством
+                            привёл к изменениям во всём мире. Последние слова пирата перед казнью открыли
+                            расположение
+                            величайшего сокровища мира Ван-Пис. Тот, кто добудет его, станет новым Королём пиратов,
+                            и
+                            именно это событие положило начало Великой эры пиратов.</p>
+                    </div>
+                </div>
+                <div class="container">
+                    <h2>Персонажи</h2>
+                    <div class="main-page__characters">
+                        <div class="main-page__char">
+                            <img src="./assets/img/luffy-char.jpg" alt="luffy" class="main-page__char__img">
+                            <p>Luffy</p>
+                        </div>
+                        <div class="main-page__char">
+                            <img src="./assets/img/zoro-char.jpg" alt="luffy" class="main-page__char__img">
+                            <p>Zoro</p>
+                        </div>
+                        <div class="main-page__char">
+                            <img src="./assets/img/ace-char.jpg" alt="luffy" class="main-page__char__img">
+                            <p>Ace</p>
+                        </div>
+                        <div class="main-page__char">
+                            <img src="./assets/img/chopper-char.jpg" alt="luffy" class="main-page__char__img">
+                            <p>Chopper</p>
+                        </div>
+                        <div class="main-page__char">
+                            <img src="./assets/img/lo-char.jpg" alt="luffy" class="main-page__char__img">
+                            <p>Trafalgar</p>
+                        </div>
+                        <div class="main-page__char">
+                            <img src="./assets/img/nami-char.jpg" alt="luffy" class="main-page__char__img">
+                            <p>Nami</p>
+                        </div>
+                        <div class="main-page__char">
+                            <img src="./assets/img/robin-char.jpg" alt="luffy" class="main-page__char__img">
+                            <p>Robin</p>
+                        </div>
+                        <div class="main-page__char">
+                            <img src="./assets/img/sanji-char.jpg" alt="luffy" class="main-page__char__img">
+                            <p>Sanji</p>
+                        </div>
+                        <div class="main-page__char">
+                            <img src="./assets/img/shanks-char.jpg" alt="luffy" class="main-page__char__img">
+                            <p>Shanks</p>
+                        </div>
+                        <div class="main-page__char">
+                            <img src="./assets/img/usopp-char.jpg" alt="luffy" class="main-page__char__img">
+                            <p>Usopp</p>
+                        </div>
+
+
+
+
+
+
+                    </div>
+                </div>
+                <div class="container">
+                    <h2>Categories Of Products</h2>
+                    <div class="main-page__products">
+                        <div class="main-page__product">
+                            <img src="./assets/img/merchAccessories.jpg" alt="" class="main-page__product__img">
+                            <a href="" class="main-page__product__category">Accessories</a>
+                        </div>
+                        <div class="main-page__product">
+                            <img src="./assets/img/merchForHouse.jpg" alt="" class="main-page__product__img">
+                            <a href="" class="main-page__product__category">House Decor</a>
+                        </div>
+                        <div class="main-page__product">
+                            <img src="./assets/img/merchMaika.jpg" alt="" class="main-page__product__img">
+                            <a href="" class="main-page__product__category">Clothes</a>
+                        </div>
+                        <div class="main-page__product">
+                            <img src="./assets/img/merchZnachki.jpg" alt="" class="main-page__product__img">
+                            <a href="" class="main-page__product__category">Merch</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <h2>News</h2>
+                    <div class="main-page__news">
+
+                    </div>
+                </div>
+
+
+            </section>
+            <section class="characters-page" v-if="currentPage==='character'">
+                <div class="banner3">
+                    <img src="./assets/img/banner.jpg" alt="obl" class="banner__image">
+                    <div class="banner3__content">
+                        <div class="banner3__links">
+                            <a href="" class="banner3__link">Главная</a>
+                            <div class="links__delimeter">|</div>
+                            <a href="" class="banner3__link">Персонажи</a>
+                            <div class="links__delimeter">|</div>
+                            <a href="" class="banner3__link">Добро пожаловать в мир Ван Писа</a>
+
+                        </div>
+                        <h1 class="banner3__heading heading">Добро пожаловать в мир Ван Писа</h1>
+                        <h2 class="banner3__sub-heading sub-heading">Читайте и смотрите вместе с нами!</h2>
+                    </div>
+                </div>
+
+
+                <div class="info">
+                    <h4 class="info__heading heading">Главный герой!</h4>
+                    <div class="info__text">
+                        <div class="tab__text">
+                            <p class="text">
+                                Монки Д. Луффи, 17-летний парень, бросает вызов Гранд Лайн. Он собирает команду и
+                                отправляется на поиски сокровища, мечтая о захватывающих приключениях и имея свои
+                                причины стать пиратом. Следуя по стопам своего героя детства, Короля пиратов, Луффи и
+                                его команда путешествуют по линии Великого моря навстречу безумным приключениям, сильным
+                                врагам, и всё для того, чтобы добыть Великое сокровище мира — Ван-Пис.
+
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="slider">
+                    <div class="container">
+                        <div class="welcome-slider swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img class="slide-img" src="./assets/img/onepiece1.jpg" alt="">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img class="slide-img" src="./assets/img/onepiece1.jpg" alt="">
+
+                                </div>
+                                <div class="swiper-slide">
+                                    <img class="slide-img" src="./assets/img/onepiece1.jpg" alt="">
+
+                                </div>
+                                <div class="swiper-slide">
+                                    <img class="slide-img" src="./assets/img/onepiece1.jpg" alt="">
+
+                                </div>
+                                <div class="swiper-slide">
+                                    <img class="slide-img" src="./assets/img/onepiece1.jpg" alt="">
+
+                                </div>
+                                <div class="swiper-slide">
+                                    <img class="slide-img" src="./assets/img/onepiece1.jpg" alt="">
+
+                                </div>
+
+                            </div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="container">
+                    <div class="week-programs">
+                        <h4 class="week-programs__heading heading">Популярные арки</h4>
+                        <div class="tabs">
+                            <div class="tab">
+                                <input type="checkbox" id="chck1">
+                                <label class="tab-label" for="chck1">
+                                    <span>
+                                        <span class="tab-four-firsthalf">Арка</span>
+                                        <span class="tab-four-secondhalf">Арка страны Вано.</span>
+                                    </span>
+                                </label>
+                                <div class="tab-content">
+                                    <div class="tab-content-container">
+                                        <div class="tab-content-text">
+
+                                            Прогулка к скале Чертов Палец. Пройдем по лесу, поднимемся к гротам.
+                                            Прогулка наАрка страны Вано (ワノ国編 Вано Куни Хэн?) — это тридцать первая
+                                            сюжетная арка в серии и четвёртая в саге Ёнко манги One Piece,
+                                            продолжающаяся от арки Совета Королей.
+                                            Ниндзя-пирато-минко-самурайский альянс приводит в действие свой план по
+                                            привлечению союзников в страну Вано, чтобы освободить её от гнёта сёгуна
+                                            Куродзуми Ороти и его союзников, пиратов Зверей во главе с Ёнко Кайдо. Тем
+                                            временем пираты Биг Мам также направляются в Вано, чтобы отомстить Мугиварам
+                                            за то, что они ранее устроили в Тотто Лэнде.
+
+                                        </div>
+
+
+
+                                        <img src="./assets/img/onepiece10.jpg" alt="">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab">
+                                <input type="checkbox" id="chck2">
+                                <label class="tab-label" for="chck2">
+                                    <span>
+                                        <span class="tab-four-firsthalf">Арка</span>
+                                        <span class="tab-four-secondhalf">Арка Дресс Розы</span>
+                                    </span>
+                                </label>
+                                <div class="tab-content">
+                                    <div class="tab-content-container">
+                                        <div class="tab-content-text">
+                                            Арка Дресс Розы является двадцать седьмой сюжетной аркой с начала манги и
+                                            второй с начала Саги Дресс Розы Манги One Piece, продолжающейся после
+                                            событий Арки Панк Хазарда.
+
+                                            Где Мугивары, Трафальгар Ло и Кин’эмон, образовав Альянс, направляются на
+                                            Дресс Розу, являющейся одним из пунктов их плана. Дресс Роза является вторым
+                                            островом встречающимся Мугиварам в Новом Мире, где правит Ситибукаи Донкихот
+                                            Дофламинго
+                                        </div>
+
+
+
+                                        <img src="./assets/img/onepiece9.webp" alt="">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab">
+                                <input type="checkbox" id="chck3">
+                                <label class="tab-label" for="chck3">
+                                    <span>
+                                        <span class="tab-four-firsthalf">Арка</span>
+                                        <span class="tab-four-secondhalf">Арка Эниэс Лобби</span>
+                                    </span>
+                                </label>
+                                <div class="tab-content">
+                                    <div class="tab-content-container">
+                                        <div class="tab-content-text">
+                                            Арка Эниес Лобби — шестнадцатая арка манги и аниме One Piece, и третий в
+                                            Саге
+                                            Water 7. Эниес Лобби восьмой остров, на который Пираты Соломенной Шляпы
+                                            приплыли в Гранд Лайне. Эта арка также служит в качестве точки продвижения
+                                            для каждого из Мугивар, так как почти все из них становятся сильнее в
+                                            некотором роде. В этой арке, Соломенные Шляпы также прощаются со своим
+                                            любимым кораблём — Гоинг Мерри.
+                                        </div>
+
+
+
+                                        <img src="./assets/img/onepiece8.webp" alt="">
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </section>
+            <section class="products-page" v-if="currentPage==='products'">
+                <div class="products__list">
+                    <v-product v-for="product in products" :key="product.id" :product="product" @add="addToCart">
+                    </v-product>
+                </div>
+
+            </section>
+            <section class="login-page" v-if="currentPage==='login'">
+                <form action="#" class="register-form">
+                    <label for="email">your email</label>
+                    <input type="email" class="register-form__input" name="email" placeholder="enter your email"
+                        id="email" reqired>
+                    <label for="psw">password</label>
+                    <input type="password" placeholder="enter your password" name="psw" id="psw"
+                        class="register-form__input" required>
+                    <button class="register-form__btn" type="submit">register</button>
+
+                </form>
+            </section>
+            <section class="register-page" v-if="currentPage==='register'">
+                <form action="#" class="register-form">
+                    <label for="email">your email</label>
+                    <input type="email" class="register-form__input" name="email" placeholder="enter your email"
+                        id="email" reqired>
+                    <label for="psw">password</label>
+                    <input type="password" placeholder="enter your password" name="psw" id="psw"
+                        class="register-form__input" required>
+                    <button class="register-form__btn" type="submit">register</button>
+
+                </form>
+            </section>
+            <section class="personal-account-page" v-if="currentPage==='personal'"></section>
+            <section class="admin-page" v-if="currentPage==='admin'"></section>
+
+    </div>
+    <div id="popup" class="popup">
+        <a href="#header" class="popup__area"></a>
+        <div class="popup__body">
+            <div class="popup__content">
+                <a href="#header" class="popup__close">X</a>
+                <div class="popup__title">
+                    Оставить заявку
+                </div>
+                <form action="" class="popup__form">
+                    <div class="popup__container">
+                        <label for="username--id" class="form__label form__username--label">Ваше имя</label>
+                        <input type="text" class="form__username" name="username" id="username--id"
+                            placeholder="Наталья">
+                    </div>
+                    <div class="popup__container">
+                        <label for="" class="form__label form__telephone--label">Ваш телефон</label>
+                        <input type="number" name="telephone" class="form__telephone" id="telephone--id"
+                            placeholder="+ 7 (___) __ ___ ___">
+                    </div>
+                    <div class="popup__container form__container-last">
+                        <button class="form__button--for-send">Отправить</button>
+                        <div class="form__personal-data">Нажимая на кнопку, вы даете согласие на обработку
+                            персональных
+                            данных</div>
+
+                    </div>
+
+
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+    </main>
+    </div>
+
+    <script src="js/vue.global.js"></script>
+    <script src="js/components/v-card.js" type="module"></script>
+    <script src="js/components/v-product.js" type="module"></script>
+
+
+    <script src="js/main.js" type="module"></script>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="./js/scrollUp.js"></script>
+    <script src="./js/sliderWork.js"></script>
+
+</body>
+
+</html>
